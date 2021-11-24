@@ -1,31 +1,11 @@
+export const API_SERVER = "https://localhost:5001";
+
 // Make requests to CryptoCompare API
-export async function makeApiRequest(path) {
+export async function makeApiRequest2(path) {
 	try {
-		const response = await fetch(`https://min-api.cryptocompare.com/${path}`);
+		const response = await fetch(`${API_SERVER}/api/ChartingLibary/${path}`);
 		return response.json();
 	} catch (error) {
-		throw new Error(`CryptoCompare request error: ${error.status}`);
+		throw new Error(`ChartingLibary request error: ${error.status}`);
 	}
-}
-
-// Generate a symbol ID from a pair of the coins
-export function generateSymbol(exchange, fromSymbol, toSymbol) {
-	const short = `${fromSymbol}/${toSymbol}`;
-	return {
-		short,
-		full: `${exchange}:${short}`,
-	};
-}
-
-export function parseFullSymbol(fullSymbol) {
-	const match = fullSymbol.match(/^(\w+):(\w+)\/(\w+)$/);
-	if (!match) {
-		return null;
-	}
-
-	return {
-		exchange: match[1],
-		fromSymbol: match[2],
-		toSymbol: match[3],
-	};
 }
